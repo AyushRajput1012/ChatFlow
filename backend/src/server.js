@@ -4,7 +4,7 @@ import "dotenv/config";
 import cors from 'cors';
 import { connectDB } from "./lib/db.js";
 import { clerkMiddleware } from '@clerk/express';
-import job from "./cron.js";
+
 
 import fs from "fs";
 import path from "path"
@@ -48,10 +48,6 @@ const startServer = async () => {
 
         app.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);
-            if(process.env.NODE_ENV === "production") {
-                job.start();
-                 console.log("Cron job started successfully");
-            }
         });
 
     } catch (error) {
