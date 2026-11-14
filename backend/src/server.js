@@ -11,8 +11,9 @@ import messageRoutes from "./routes/message.route.js";
 
 import fs from "fs";
 import path from "path"
+import { app, server } from './lib/socket.js';
 
-const app = express();
+
 
 const FRONTEND_URL = process.env.FRONTEND_URL;
 const PORT = process.env.PORT || 3000;
@@ -55,7 +56,7 @@ const startServer = async () => {
     try {
         await connectDB();
 
-        app.listen(PORT, () => {
+        server.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);
         });
 

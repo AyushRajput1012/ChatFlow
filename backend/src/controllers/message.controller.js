@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import Message from "../models/message.model.js";
 import { hasImageKitConfig, uploadChatMedia } from "../lib/imagekit.js";
+import { getReceiverSocketId, io } from "../lib/socket.js";
 
 
 export async function getUsersForSidebar(req, res){
@@ -78,7 +79,6 @@ export async function sendMessage(req,res){
         let videoUrl;
 
         if(req.file){
-            //fix this error
             if(!hasImageKitConfig()){
                 return res.status(500).json({message: "Media upload is not configured"});
             }
@@ -98,7 +98,11 @@ export async function sendMessage(req,res){
 
         await newMessage.save();
 
-        //todo: realtime it works with socketio
+        const receiverSocketId = getReceiverSocketId(receiverId);
+        //only send the message in real time if user is online
+        if(receiverSocketId){
+            io.to(receiverSocketId).emit("newMessage", newMessage);
+        }
 
         res.status(201).json(newMessage);
 
