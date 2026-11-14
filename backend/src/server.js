@@ -6,6 +6,7 @@ import { connectDB } from "./lib/db.js";
 import { clerkMiddleware } from '@clerk/express';
 import clerkWebhook from "./webhooks/clerk.webhook.js";
 import authRoutes from "./routes/auth.route.js";
+import messageRoutes from "./routes/message.route.js";
 
 
 import fs from "fs";
@@ -30,6 +31,7 @@ app.get('/health',(req,res) =>{
 } );
 
 app.use("/api/auth",authRoutes);
+app.use("/api/messages",messageRoutes);
 
 //if the public directory exists, serve the static files
 //this is for the production build 
