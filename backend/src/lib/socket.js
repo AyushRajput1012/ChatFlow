@@ -1,4 +1,3 @@
-import { Socket } from "dgram";
 import express from "express";
 import http from "http";
 import { Server } from "socket.io";
@@ -17,8 +16,8 @@ function getReceiverSocketId(userId){
 //online users map = {userId: socketId}
 const userSocketMap = {};
 
-io.on("connection", (Socket) => {
-    const userId = Socket.handshake.query.userId;
+io.on("connection", (socket) => {
+    const userId = socket.handshake.query.userId;
 
     if(userId) userSocketMap[userId] = Socket.id;
 
