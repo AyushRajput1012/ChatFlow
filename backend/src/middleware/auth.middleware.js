@@ -4,7 +4,7 @@ import User from "../models/user.model.js";
 
 export async function protectRoute(req,res,next){
     try {
-        const {userId} = getAuth(res);
+        const {userId} = getAuth(req);
 
         if(!userId){
             res.status(401).json({message:"Unauthorized"});

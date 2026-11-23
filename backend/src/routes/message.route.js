@@ -8,7 +8,7 @@ const router = express.Router();
 //if we want to use protectRoute for all routes so instead of writing it individualy we can write it globaly.
 //router.use(protectRoute);
 
-router.get("/user", protectRoute, getUsersForSidebar);
+router.get("/users", protectRoute, getUsersForSidebar);
 router.get("/conversations", protectRoute, getConversationsForSidebar);
 router.get("/:id", protectRoute, getMessages);
 router.post("/send/:id", protectRoute, upload.single("media"), sendMessage);
